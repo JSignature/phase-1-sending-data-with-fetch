@@ -1,18 +1,8 @@
 // Add your code here
-// const configurationObject = {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//       Accept: "application/json",
-//     },
-//     body: JSON.stringify(data),
-//   };
+
 
 const submitData = (userName, userEmail) => {
-    const data = {
-        name : userName,
-        email : userEmail
-    }
+    const element = document.createElement("h1")
     
     return fetch("http://localhost:3000/users", {
     method: "POST",
@@ -20,17 +10,16 @@ const submitData = (userName, userEmail) => {
         "Content-Type": "application/json",
          "Accept": "application/json",
     },
-    body: JSON.stringify(data)
+    body: JSON.stringify({name : userName, email : userEmail})
 })
     .then(resp => resp.json())
     .then(object => {
-        const element = document.createElement("h1")
         element.textContent = object.id
         document.querySelector("body").appendChild(element)
-
-    
-
     })
-
+    .catch(error => {
+        element.textContent = error.message
+        document.querySelector("body").appendChild(element)
+    })
 }
 submitData("Jimmy", "someemail@gmail.com")
